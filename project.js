@@ -191,4 +191,39 @@ function createMatrix(rows, cols) {
     );
   
     return inverseMatrix;
-  }
+  } 
+
+    // Function to convert a matrix to a string
+    function matrixToString(matrix) {
+      return matrix.map(row => row.join(" ")).join("\n");
+    }
+    
+    // Get the dimensions of matrix A from the user
+    const rowsA = parseInt(prompt("Enter the number of rows for matrix A:"));
+    const colsA = parseInt(prompt("Enter the number of columns for matrix A:"));
+    
+    const matrixA = createMatrix(rowsA, colsA);
+    
+    inputMatrix("A", matrixA);
+    
+    // Check if matrix B is needed
+    const needMatrixB = confirm("Do you want to enter values for matrix B?");
+    
+    let matrixB = null;
+    if (needMatrixB) {
+      const rowsB = parseInt(prompt("Enter the number of rows for matrix B:"));
+      const colsB = parseInt(prompt("Enter the number of columns for matrix B:"));
+  
+      matrixB = createMatrix(rowsB, colsB);
+      inputMatrix("B", matrixB);
+    }
+    
+    // Output matrix A
+    console.log("Matrix A:");
+    console.log(matrixToString(matrixA));
+    
+    // Output matrix B (if entered)
+    if (matrixB) {
+      console.log("Matrix B:");
+      console.log(matrixToString(matrixB));
+    }
