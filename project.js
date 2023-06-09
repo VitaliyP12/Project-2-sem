@@ -114,4 +114,81 @@ function createMatrix(rows, cols) {
     }
   
     return resultMatrix;
+  } 
+
+  // Function to calculate the determinant of a matrix
+  function calculateDeterminant(matrix) {
+    const size = matrix.length;
+  
+    if (size !== matrix[0].length) {
+      return null;
+    }
+  
+    function recursiveDeterminant(matrix) {
+      if (matrix.length === 2) {
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+      }
+  
+      let determinant = 0;
+      for (let i = 0; i < size; i++) {
+        const subMatrix = matrix.slice(1).map(row => row.filter((_, j) => j !== i));
+        determinant += (i % 2 === 0 ? 1 : -1) * matrix[0][i] * recursiveDeterminant(subMatrix);
+      }
+  
+      return determinant;
+    }
+  
+    const determinant = recursiveDeterminant(matrix);
+  
+    if (determinant < 0) {
+      console.log("Determinant of the matrix is negative");
+    }
+  
+    return determinant;
+  }
+  
+  // Function to calculate the inverse of a matrix
+  function calculateInverseMatrix(matrix) {
+    const size = matrix.length;
+  
+    if (size !== matrix[0].length) {
+      return null;
+    }
+  
+    function recursiveDeterminant(matrix) {
+      if (matrix.length === 2) {
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+      }
+  
+      let determinant = 0;
+      for (let i = 0; i < size; i++) {
+        const subMatrix = matrix.slice(1).map(row => row.filter((_, j) => j !== i));
+        determinant += (i % 2 === 0 ? 1 : -1) * matrix[0][i] * recursiveDeterminant(subMatrix);
+      }
+  
+      return determinant;
+    }
+  
+    const determinant = recursiveDeterminant(matrix);
+  
+    if (determinant === 0) {
+      return null;
+    }
+  
+    const cofactorMatrix = matrix.map((row, i) =>
+      row.map((_, j) => {
+        const subMatrix = matrix.filter((_, k) => k !== i).map(row => row.filter((_, l) => l !== j));
+        return Math.pow(-1, i + j) * recursiveDeterminant(subMatrix);
+      })
+    );
+  
+    const adjugateMatrix = cofactorMatrix[0].map((_, j) =>
+      cofactorMatrix.map(row => row[j])
+    );
+  
+    const inverseMatrix = adjugateMatrix.map(row =>
+      row.map(element => element / determinant)
+    );
+  
+    return inverseMatrix;
   }
