@@ -227,3 +227,69 @@ function createMatrix(rows, cols) {
       console.log("Matrix B:");
       console.log(matrixToString(matrixB));
     }
+
+    // Prompt for the desired action
+  const action = parseInt(prompt(`Select an action:
+  1: Addition and Subtraction
+  2: Scalar Multiplication
+  3: Matrix Multiplication
+  4: Transposition
+  5: Determinant
+  6: Inverse Matrix`));
+  
+  switch (action) {
+    case 1:
+      const sum = addMatrices(matrixA, matrixB);
+      const difference = subtractMatrices(matrixA, matrixB);
+      console.log("Sum of matrices:");
+      console.log(matrixToString(sum));
+  
+      console.log("Difference of matrices:");
+      console.log(matrixToString(difference));
+      break;
+    case 2:
+      const scalar = parseFloat(prompt("Enter the scalar value:"));
+      const scaledMatrixA = multiplyByScalar(matrixA, scalar);
+      console.log("Matrix A multiplied by scalar:");
+      console.log(matrixToString(scaledMatrixA));
+      break;
+    case 3:
+      const product = multiplyMatrices(matrixA, matrixB);
+      console.log("Matrix multiplication result:");
+      console.log(matrixToString(product));
+      break;
+    case 4:
+      const transposedMatrixA = transposeMatrix(matrixA);
+      console.log("Transposed matrix A:");
+      console.log(matrixToString(transposedMatrixA));
+  
+      if (matrixB) {
+        const transposedMatrixB = transposeMatrix(matrixB);
+        console.log("Transposed matrix B:");
+        console.log(matrixToString(transposedMatrixB));
+      }
+      break;
+    case 5:
+      const determinantA = calculateDeterminant(matrixA);
+      const determinantB = matrixB ? calculateDeterminant(matrixB) : null;
+      console.log("Determinant of matrix A:", determinantA);
+  
+      if (matrixB) {
+        console.log("Determinant of matrix B:", determinantB);
+      }
+      break;
+    case 6:
+      const inverseMatrixA = calculateInverseMatrix(matrixA);
+      const inverseMatrixB = matrixB ? calculateInverseMatrix(matrixB) : null;
+      console.log("Inverse matrix of A:");
+      console.log(matrixToString(inverseMatrixA));
+  
+      if (matrixB) {
+        console.log("Inverse matrix of B:");
+        console.log(matrixToString(inverseMatrixB));
+      }
+      break;
+    default:
+      console.log("Invalid action selected.");
+  }
+  
